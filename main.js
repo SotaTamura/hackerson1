@@ -57,6 +57,28 @@ const newWord = () => {
   typedElm.textContent = "";
   notTypedElm.textContent = wordStr.replaceAll(" ", "_");
 };
+const quiz = (keyPressed) => {
+  if (!/[0-3]/.test(keyPressed)) return;
+  // 単語の意味クイズ
+  const numPressed = parseInt(keyPressed);
+  const selectedChoice = choiceElms[numPressed];
+  const correctChoice = choiceElms[correctNum];
+  correctChoice.style.color = "#0f0";
+  inputEnabled = false;
+  if (numPressed === correctNum) {
+    // 正解
+    quizesCorrect += 1;
+    correctChoice.textContent += " ⭕️";
+  } else {
+    // 不正解
+    quizesIncorrect += 1;
+    mistookWordsList.push({ str: wordStr, meaning: wordMeaning });
+    selectedChoice.style.color = "#f00";
+    selectedChoice.textContent += " ❌";
+  }
+  // タイピングに移動
+  setTimeout(newWord, 1000);
+};
 // スタート画面遷移
 const startScene = () => {
   startElm.style.display = "";
@@ -170,26 +192,9 @@ document.addEventListener("keydown", (e) => {
       keysMistypedList[chars[i]] = keysMistypedList[chars[i]] + 1 || 1;
       incorrectElm.textContent = `❌  ${keyPressed}`;
     }
-  } else if ((scene = "quiz")) {
-    if (!/[0-3]/.test(keyPressed)) return;
-    // 単語の意味クイズ
-    const numPressed = parseInt(keyPressed);
-    const selectedChoice = choiceElms[numPressed];
-    const correctChoice = choiceElms[correctNum];
-    correctChoice.style.color = "#0f0";
-    inputEnabled = false;
-    if (numPressed === correctNum) {
-      // 正解
-      quizesCorrect += 1;
-      correctChoice.textContent += " ⭕️";
-    } else {
-      // 不正解
-      quizesIncorrect += 1;
-      mistookWordsList.push({ str: wordStr, meaning: wordMeaning });
-      selectedChoice.style.color = "#f00";
-      selectedChoice.textContent += " ❌";
-    }
-    // タイピングに移動
-    setTimeout(newWord, 1000);
-  }
+  } else if ((scene = "quiz")) quiz(keyPressed);
 });
+// 選択肢クリックで解答
+for (let i = 0; i < choiceElms.length; i++) {
+  choiceElms[i].addEventListener("click", () => quiz(i));
+}
