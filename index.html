@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #start-button {
+        background-color: #08f;
+        border-radius: 10px;
+        font-size: 40px;
+        width: 200px;
+        height: 100px;
+        color: #fff;
+        font-weight: bold;
+      }
+      #main-input {
+        background-color: #000;
+        font-size: 80px;
+        font-weight: bold;
+        width: 800px;
+        height: 120px;
+        padding: 10px;
+      }
+      tr,
+      td {
+        padding: 20px;
+      }
+    </style>
+    <title>Typing</title>
+  </head>
+  <body>
+    <div id="start" style="text-align: center">
+      <div style="font-size: 60px">準一級タイピング</div>
+      <button id="start-button" onclick="mainScene()">スタート</button>
+    </div>
+    <div id="main">
+      <div id="timer" style="font-size: 40px; color: #f00"></div>
+      <div style="font-size: 20px">
+        ※アンダーバー（ _ ）はスペースキーです。
+      </div>
+      <div id="main-input">
+        <span id="typed" style="color: #0f0"></span
+        ><span id="not-typed" style="color: #fff"></span>
+      </div>
+      <div id="incorrect" style="color: #f00; font-size: 40px"></div>
+      <div id="choices-wrapper" style="font-size: 40px">
+        <div>意味は？</div>
+        <ul id="choices" style="list-style: none">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+    <div id="end">
+      <div style="font-size: 80px">終了！</div>
+      <div id="result" style="font-size: 40px; line-height: 0.5"></div>
+    </div>
+    <script src="./vocabularies.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
