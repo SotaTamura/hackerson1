@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      #start-button {
+      button {
         background-color: #08f;
         border-radius: 10px;
         font-size: 40px;
@@ -12,6 +12,12 @@
         height: 100px;
         color: #fff;
         font-weight: bold;
+        margin: 10px;
+      }
+      #time-input {
+        margin: 10px;
+        font-size: 20px;
+        width: 80px;
       }
       #main-input {
         background-color: #000;
@@ -20,6 +26,7 @@
         width: 800px;
         height: 120px;
         padding: 10px;
+        text-align: center;
       }
       tr,
       td {
@@ -31,10 +38,14 @@
   <body>
     <div id="start" style="text-align: center">
       <div style="font-size: 60px">準一級タイピング</div>
+      <div>
+        <label for="time-input" style="font-size: 20px">制限時間</label>
+        <input id="time-input" type="text" value="30" />
+      </div>
       <button id="start-button" onclick="mainScene()">スタート</button>
     </div>
     <div id="main">
-      <div id="timer" style="font-size: 40px; color: #f00"></div>
+      <div id="timer" style="font-size: 40px"></div>
       <div style="font-size: 20px">
         ※アンダーバー（ _ ）はスペースキーです。
       </div>
@@ -56,6 +67,7 @@
     <div id="end">
       <div style="font-size: 80px">終了！</div>
       <div id="result" style="font-size: 40px; line-height: 0.5"></div>
+      <button id="retry-button" onclick="startScene()">再挑戦</button>
     </div>
     <script src="./vocabularies.js"></script>
     <script src="./main.js"></script>

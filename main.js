@@ -8,6 +8,7 @@ let wordObj,
   scene,
   inputEnabled,
   timerId,
+  initialTime,
   timeLeft,
   keysTypedNum,
   keysMistypedList,
@@ -16,6 +17,8 @@ let wordObj,
   mistookWordsList;
 // DOM
 const startElm = document.getElementById("start"),
+  timeInputElm = document.getElementById("time-input"),
+  startButtonElm = document.getElementById("start-button"),
   mainElm = document.getElementById("main"),
   timerElm = document.getElementById("timer"),
   mainInputElm = document.getElementById("main-input"),
@@ -30,6 +33,11 @@ const startElm = document.getElementById("start"),
 // ランダム関数
 const rand = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+// 制限時間入力
+timeInputElm.oninput = () => {
+  let inputVal = timeInputElm.value;
+  startButtonElm.disabled = !(!isNaN(inputVal) && inputVal > 0);
 };
 // 新しい単語
 const newWord = () => {
@@ -60,16 +68,20 @@ const mainScene = () => {
   startElm.style.display = "none";
   mainElm.style.display = "";
   endElm.style.display = "none";
+  incorrectElm.textContent = "";
   keysTypedNum = 0;
   keysMistypedList = {};
   quizesCorrect = 0;
   quizesIncorrect = 0;
   mistookWordsList = [];
-  timeLeft = 30;
+  initialTime = parseInt(timeInputElm.value);
+  timeLeft = initialTime;
   const timer = () => {
     if (!inputEnabled) return;
     timeLeft -= 0.01;
     timerElm.textContent = `残り時間：${Math.round(timeLeft * 100) / 100}秒`;
+    if (timeLeft <= 10) timerElm.style.color = "#f00";
+    else timerElm.style.color = "#000";
     if (timeLeft <= 0) {
       clearInterval(timerId);
       endScene();
@@ -84,6 +96,7 @@ const endScene = () => {
   mainElm.style.display = "none";
   endElm.style.display = "";
   resultElm.innerHTML = `
+  <br>制限時間：${initialTime}秒</br>
   <br>正しく打てた文字数：${keysTypedNum}</br>
   <br>ミスタイプ数：${Object.values(keysMistypedList).reduce(
     (sum, num) => sum + num,
