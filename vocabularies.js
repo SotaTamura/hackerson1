@@ -515,11 +515,6 @@ const words = [
     category: "熟語",
   },
   {
-    eng: "beggar",
-    jpn: "乞食，物乞い",
-    category: "名詞",
-  },
-  {
     eng: "warmth",
     jpn: "暖かさ，温もり",
     category: "名詞",
@@ -4585,11 +4580,6 @@ const words = [
     category: "熟語",
   },
   {
-    eng: "idiot",
-    jpn: "馬鹿",
-    category: "名詞",
-  },
-  {
     eng: "plural",
     jpn: "複数の",
     category: "形容詞",
@@ -4602,11 +4592,6 @@ const words = [
   {
     eng: "removal",
     jpn: "除去，取り除く",
-    category: "名詞",
-  },
-  {
-    eng: "diarrhea",
-    jpn: "下痢",
     category: "名詞",
   },
   {
@@ -5275,11 +5260,6 @@ const words = [
     category: "形容詞",
   },
   {
-    eng: "pregnancy",
-    jpn: "妊娠",
-    category: "名詞",
-  },
-  {
     eng: "comparable",
     jpn: "比較できる，比べられる",
     category: "形容詞",
@@ -5372,11 +5352,6 @@ const words = [
   {
     eng: "transaction",
     jpn: "取引",
-    category: "名詞",
-  },
-  {
-    eng: "stupidity",
-    jpn: "愚かさ，愚鈍",
     category: "名詞",
   },
   {
@@ -5648,11 +5623,6 @@ const words = [
     eng: "deliberately",
     jpn: "故意に，慎重に",
     category: "副詞",
-  },
-  {
-    eng: "feminist",
-    jpn: "男女同権主義者，フェミニスト",
-    category: "名詞",
   },
   {
     eng: "stump",
@@ -7195,11 +7165,6 @@ const words = [
     category: "形容詞",
   },
   {
-    eng: "bellybutton",
-    jpn: "へそ，へその緒がついていた傷痕",
-    category: "名詞",
-  },
-  {
     eng: "patriot",
     jpn: "愛国者，愛国主義者",
     category: "名詞",
@@ -7348,11 +7313,6 @@ const words = [
     eng: "embark",
     jpn: "積み込む，乗船する",
     category: "動詞",
-  },
-  {
-    eng: "queer",
-    jpn: "風変わりな，変な",
-    category: "形容詞",
   },
   {
     eng: "oppress",
@@ -7551,7 +7511,7 @@ const words = [
   },
   {
     eng: "slay",
-    jpn: "を殺害する，計画的に殺す",
+    jpn: "を殺害する",
     category: "動詞",
   },
   {
@@ -8883,11 +8843,6 @@ const words = [
     eng: "sip",
     jpn: "一口飲む",
     category: "動詞",
-  },
-  {
-    eng: "bosom",
-    jpn: "乳房，胸",
-    category: "名詞",
   },
   {
     eng: "preside",
@@ -11135,11 +11090,6 @@ const words = [
     category: "名詞",
   },
   {
-    eng: "slaughter",
-    jpn: "虐殺，大量殺戮",
-    category: "名詞",
-  },
-  {
     eng: "traverse",
     jpn: "を横切る，横断する",
     category: "動詞",
@@ -11210,11 +11160,6 @@ const words = [
     category: "熟語",
   },
   {
-    eng: "lust",
-    jpn: "切望，渇望",
-    category: "名詞",
-  },
-  {
     eng: "in pursuit of",
     jpn: "を追跡して，追いかけて",
     category: "熟語",
@@ -11223,11 +11168,6 @@ const words = [
     eng: "abound",
     jpn: "たくさんいる，多い",
     category: "動詞",
-  },
-  {
-    eng: "prostitute",
-    jpn: "売春婦",
-    category: "名詞",
   },
   {
     eng: "in development",
@@ -11531,7 +11471,7 @@ const words = [
   },
   {
     eng: "sterile",
-    jpn: "殺菌した，不妊の",
+    jpn: "殺菌した",
     category: "形容詞",
   },
   {
@@ -11601,7 +11541,7 @@ const words = [
   },
   {
     eng: "strangle",
-    jpn: "を絞め殺す，窒息させる",
+    jpn: "窒息させる",
     category: "動詞",
   },
   {
@@ -11940,11 +11880,6 @@ const words = [
     category: "熟語",
   },
   {
-    eng: "racism",
-    jpn: "人種差別",
-    category: "名詞",
-  },
-  {
     eng: "infrastructure",
     jpn: "基盤",
     category: "名詞",
@@ -11982,11 +11917,6 @@ const words = [
   {
     eng: "gorge",
     jpn: "峡谷，谷間",
-    category: "名詞",
-  },
-  {
-    eng: "cult",
-    jpn: "儀式，信仰",
     category: "名詞",
   },
   {
@@ -13411,7 +13341,7 @@ const words = [
   },
   {
     eng: "assassin",
-    jpn: "暗殺者，刺客",
+    jpn: "暗殺者",
     category: "名詞",
   },
   {
@@ -13810,11 +13740,6 @@ const words = [
     category: "名詞",
   },
   {
-    eng: "holocaust",
-    jpn: "大虐殺",
-    category: "名詞",
-  },
-  {
     eng: "hectic",
     jpn: "興奮した",
     category: "形容詞",
@@ -14025,23 +13950,8 @@ const words = [
     category: "動詞",
   },
   {
-    eng: "thong",
-    jpn: "ひも",
-    category: "名詞",
-  },
-  {
-    eng: "seduce",
-    jpn: "を誘惑する，そそのかす",
-    category: "動詞",
-  },
-  {
     eng: "sinner",
     jpn: "罪人",
-    category: "名詞",
-  },
-  {
-    eng: "massacre",
-    jpn: "皆殺し，大虐殺",
     category: "名詞",
   },
   {

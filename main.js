@@ -1,8 +1,7 @@
 // 宣言
 let wordObj,
-  wordStr,
-  wordMeaning,
   chars,
+  wordMeaning,
   i,
   correctNum,
   scene,
@@ -22,14 +21,23 @@ const startElm = document.getElementById("start"),
   mainElm = document.getElementById("main"),
   timerElm = document.getElementById("timer"),
   mainInputElm = document.getElementById("main-input"),
-  typedElm = document.getElementById("typed"),
-  notTypedElm = document.getElementById("not-typed"),
   incorrectElm = document.getElementById("incorrect"),
   choicesWrapperElm = document.getElementById("choices-wrapper"),
   choicesElm = document.getElementById("choices"),
   choiceElms = choicesElm.children,
   endElm = document.getElementById("end"),
   resultElm = document.getElementById("result");
+// キャンバス
+const ctx = mainInputElm.getContext("2d");
+mainInputElm.width = 1200;
+mainInputElm.height = 120;
+const MAIN_INPUT_W = mainInputElm.width,
+  MAIN_INPUT_H = mainInputElm.height;
+const timerCtx = timerElm.getContext("2d");
+timerElm.width = 1200;
+timerElm.height = 40;
+const TIMER_W = timerElm.width,
+  TIMER_H = timerElm.height;
 // ランダム関数
 const rand = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -39,23 +47,39 @@ timeInputElm.oninput = () => {
   let inputVal = timeInputElm.value;
   startButtonElm.disabled = !(!isNaN(inputVal) && inputVal > 0);
 };
+// 文字描画
+const drawChar = (i, color) => {
+  ctx.font = "bold 100px Arial";
+  ctx.lineCap = "round";
+  const startPosX =
+    MAIN_INPUT_W / 2 -
+    ctx.measureText(chars).width / 2 +
+    ctx.measureText(chars.slice(0, i)).width;
+  ctx.beginPath();
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = color;
+  ctx.moveTo(startPosX + 6, 110);
+  ctx.lineTo(startPosX + ctx.measureText(chars[i]).width - 6, 110);
+  ctx.stroke();
+  ctx.fillStyle = color;
+  ctx.fillText(chars[i], startPosX, 100);
+};
 // 新しい単語
 const newWord = () => {
+  ctx.clearRect(0, 0, MAIN_INPUT_W, MAIN_INPUT_H);
   choicesWrapperElm.style.display = "none";
   Array.prototype.forEach.call(
     choiceElms,
-    (choiceElm) => (choiceElm.style.color = "#000")
+    (choiceElm) => (choiceElm.style.backgroundColor = "")
   );
   wordObj = words[rand(0, words.length)];
-  wordStr = wordObj.eng;
+  chars = wordObj.eng;
   wordMeaning = wordObj.jpn;
-  chars = wordStr.split("");
+  for (let i = 0; i < chars.length; i++) drawChar(i, "#fff");
   i = 0;
   correctNum = rand(0, 3);
   scene = "typing";
   inputEnabled = true;
-  typedElm.textContent = "";
-  notTypedElm.textContent = wordStr.replaceAll(" ", "_");
 };
 const quiz = (keyPressed) => {
   if (!/[0-3]/.test(keyPressed)) return;
@@ -63,7 +87,7 @@ const quiz = (keyPressed) => {
   const numPressed = parseInt(keyPressed);
   const selectedChoice = choiceElms[numPressed];
   const correctChoice = choiceElms[correctNum];
-  correctChoice.style.color = "#0f0";
+  correctChoice.style.backgroundColor = "#0f0";
   inputEnabled = false;
   if (numPressed === correctNum) {
     // 正解
@@ -72,9 +96,9 @@ const quiz = (keyPressed) => {
   } else {
     // 不正解
     quizesIncorrect += 1;
-    mistookWordsList.push({ str: wordStr, meaning: wordMeaning });
-    selectedChoice.style.color = "#f00";
-    selectedChoice.textContent += " ❌";
+    mistookWordsList.push({ str: chars, meaning: wordMeaning });
+    selectedChoice.style.backgroundColor = "#f00";
+    selectedChoice.textContent += " ✖️";
   }
   // タイピングに移動
   setTimeout(newWord, 1000);
@@ -101,9 +125,19 @@ const mainScene = () => {
   const timer = () => {
     if (!inputEnabled) return;
     timeLeft -= 0.01;
-    timerElm.textContent = `残り時間：${Math.round(timeLeft * 100) / 100}秒`;
-    if (timeLeft <= 10) timerElm.style.color = "#f00";
-    else timerElm.style.color = "#000";
+    let color;
+    if (timeLeft <= 10) color = "#f00";
+    else color = "#00f";
+    timerCtx.clearRect(0, 0, TIMER_W, TIMER_H);
+    timerCtx.fillStyle = color;
+    timerCtx.fillRect(0, 0, (TIMER_W * timeLeft) / initialTime, TIMER_H);
+    timerCtx.font = "bold 30px Arial";
+    timerCtx.fillStyle = "#fff";
+    timerCtx.fillText(
+      `残り時間：${Math.round(timeLeft * 100) / 100}秒`,
+      10,
+      30
+    );
     if (timeLeft <= 0) {
       clearInterval(timerId);
       endScene();
@@ -133,7 +167,8 @@ const endScene = () => {
   <br>クイズ正解数：${quizesCorrect}</br>
   <br>クイズ不正解数：${quizesIncorrect}</br>
   <br>間違えた語彙：</br>
-  <table>
+  <br></br>
+  <table border="1" style="border-collapse: collapse; border-color: #888">
       ${mistookWordsList
         .map((word) => `<tr><td>${word.str}</td><td>${word.meaning}</td></tr>`)
         .join("")}
@@ -145,26 +180,20 @@ startScene();
 document.addEventListener("keydown", (e) => {
   if (!inputEnabled) return;
   let keyPressed = e.key;
+  if (keyPressed === "Shift") return;
   incorrectElm.textContent = "";
   if (scene === "typing") {
     // タイピング
     if (keyPressed === chars[i]) {
       // タイピング正解
       keysTypedNum += 1;
-      typedElm.textContent = chars
-        .slice(0, i + 1)
-        .join("")
-        .replaceAll(" ", "_");
-      notTypedElm.textContent = chars
-        .slice(i + 1)
-        .join("")
-        .replaceAll(" ", "_");
+      drawChar(i, "#0f0");
       i++;
       // 単語の意味クイズに移動
       if (i === chars.length) {
         choicesWrapperElm.style.display = "";
         let sameCategoryWords = words.filter(
-          (word) => word.category === wordObj.category && word.eng !== wordStr
+          (word) => word.category === wordObj.category && word.eng !== chars
         );
         let indexForChoices = [];
         for (let i = 0; i < choiceElms.length; i++) {
@@ -174,14 +203,12 @@ document.addEventListener("keydown", (e) => {
             choiceText = wordMeaning;
           } else {
             // 不正解選択肢
-            while (true) {
-              const randIndex = rand(0, sameCategoryWords.length - 1);
-              if (!indexForChoices.includes(randIndex)) {
-                indexForChoices.push(randIndex);
-                choiceText = sameCategoryWords[randIndex].jpn;
-                break;
-              }
-            }
+            let randIndex;
+            do {
+              randIndex = rand(0, sameCategoryWords.length - 1);
+            } while (indexForChoices.includes(randIndex));
+            indexForChoices.push(randIndex);
+            choiceText = sameCategoryWords[randIndex].jpn;
           }
           choiceElms[i].textContent = `${i}. ${choiceText}`;
         }
@@ -196,5 +223,8 @@ document.addEventListener("keydown", (e) => {
 });
 // 選択肢クリックで解答
 for (let i = 0; i < choiceElms.length; i++) {
-  choiceElms[i].addEventListener("click", () => quiz(i));
+  choiceElms[i].addEventListener("click", () => {
+    if (!inputEnabled) return;
+    quiz(i);
+  });
 }

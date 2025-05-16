@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       button {
-        background-color: #08f;
+        background: linear-gradient(#bbf, #00f);
+        cursor: pointer;
         border-radius: 10px;
         font-size: 40px;
         width: 200px;
@@ -14,19 +15,48 @@
         font-weight: bold;
         margin: 10px;
       }
+      button:hover {
+        background: linear-gradient(#668, #008);
+      }
+      button:active {
+        background: linear-gradient(#008, #668);
+      }
+      li {
+        margin: 2px auto;
+        width: 600px;
+        border: 2px solid #000;
+        border-radius: 10px;
+        transition: background-color 0.25s;
+        cursor: pointer;
+      }
+      li:hover {
+        background-color: #999;
+      }
       #time-input {
         margin: 10px;
         font-size: 20px;
         width: 80px;
       }
+      canvas {
+        display: block;
+        margin: 0 auto;
+      }
+      #timer {
+        background-color: #000;
+        width: 1200px;
+        height: 40px;
+      }
       #main-input {
         background-color: #000;
-        font-size: 80px;
-        font-weight: bold;
-        width: 800px;
+        width: 1200px;
         height: 120px;
-        padding: 10px;
-        text-align: center;
+      }
+      #result {
+        width: fit-content;
+        text-align: left;
+        font-size: 40px;
+        line-height: 0.5;
+        margin: 0 auto;
       }
       tr,
       td {
@@ -35,24 +65,17 @@
     </style>
     <title>Typing</title>
   </head>
-  <body>
+  <body style="background-color: #ffb">
     <div id="start" style="text-align: center">
-      <div style="font-size: 60px">準一級タイピング</div>
+      <div style="font-size: 60px; font-weight: bold">準一級タイピング</div>
       <div>
-        <label for="time-input" style="font-size: 20px">制限時間</label>
+        <label for="time-input" style="font-size: 20px">制限時間を入力：</label>
         <input id="time-input" type="text" value="30" />
       </div>
       <button id="start-button" onclick="mainScene()">スタート</button>
     </div>
-    <div id="main">
-      <div id="timer" style="font-size: 40px"></div>
-      <div style="font-size: 20px">
-        ※アンダーバー（ _ ）はスペースキーです。
-      </div>
-      <div id="main-input">
-        <span id="typed" style="color: #0f0"></span
-        ><span id="not-typed" style="color: #fff"></span>
-      </div>
+    <div id="main" style="text-align: center">
+      <canvas id="timer"></canvas><canvas id="main-input"></canvas>
       <div id="incorrect" style="color: #f00; font-size: 40px"></div>
       <div id="choices-wrapper" style="font-size: 40px">
         <div>意味は？</div>
@@ -64,9 +87,9 @@
         </ul>
       </div>
     </div>
-    <div id="end">
-      <div style="font-size: 80px">終了！</div>
-      <div id="result" style="font-size: 40px; line-height: 0.5"></div>
+    <div id="end" style="text-align: center">
+      <div style="font-size: 80px; font-weight: bold">終了！</div>
+      <div id="result"></div>
       <button id="retry-button" onclick="startScene()">再挑戦</button>
     </div>
     <script src="./vocabularies.js"></script>
